@@ -1,9 +1,11 @@
 #include "yangkvMain.h"
 
+class YangkvMain;
+
 class Singleton {
 public:
     static YangkvMain* get() {
-        pthread_once(&_p_once, &Singleton::_new);
+        pthread_once(&once, _new);
         return _instance;
     }
 
@@ -22,7 +24,7 @@ private:
     /// @note Only work with gcc
     static void _delete() {
     }
-
-    static pthread_once_t _p_once;      ///< Initialization once control
+    static pthread_once_t once;    ///< Initialization once control
     static YangkvMain* _instance;    ///< The singleton instance
+
 };

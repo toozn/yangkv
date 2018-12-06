@@ -1,6 +1,7 @@
 cc_library(
     name = "singleton",
-    srcs = ["singleton.h"],
+    srcs = ["singleton.cpp"],
+    hdrs = ["singleton.h"],
     deps = [":yangkvMain"]
 )
 
@@ -15,4 +16,7 @@ cc_binary(
 	name = "test",
 	srcs = ["test.cpp"],
 	deps = [":singleton"],
+	linkopts = [
+        "-pthread",
+    ],
 )

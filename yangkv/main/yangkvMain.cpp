@@ -1,5 +1,7 @@
 #include "yangkvMain.h"
 
+YangkvMain::YangkvMain(){}
+
 void YangkvMain::setKey(const string& key, const string& value) {
 	idx++;
     MessageQueue* queue = act_list[0]->queue;
