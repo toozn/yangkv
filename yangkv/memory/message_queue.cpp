@@ -6,7 +6,7 @@ MessageQueue::MessageQueue() {
 	r_ptr = 0;
 }
 
-void MessageQueue::push(const Message& msg) {
+void MessageQueue::push(Message* msg) {
 	lock_guard<mutex> lock(lock_);
 	while(w_ptr - r_ptr <= kQueueSize) {
 		usleep(5000);
@@ -15,9 +15,9 @@ void MessageQueue::push(const Message& msg) {
 	w_ptr++;
 }
 
-Message MessageQueue::pop() {
+Message* MessageQueue::pop() {
 	assert(w_ptr > r_ptr);
-	Message tmp = queue_[r_ptr % kQueueSize];
+	Message* tmp = queue_[r_ptr % kQueueSize];
 	r_ptr++;
 	return tmp;
 }

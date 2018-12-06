@@ -1,6 +1,7 @@
 #include "singleton.h"
+class Singleton;
 
 int main() {
-    auto db = singleton.get()
+    //auto db = Singleton::get();
     printf("Hello world\n");
 }

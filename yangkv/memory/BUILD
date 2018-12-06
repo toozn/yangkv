@@ -2,7 +2,7 @@ cc_library(
     name = "message",
     srcs = ["message.cpp"],
     hdrs = ["message.h"],
-    visibility = ["//main:__pkg__"],
+    visibility = ["//__pkg__"],
 )
 
 cc_library(
@@ -10,7 +10,7 @@ cc_library(
     srcs = ["message_queue.cpp"],
     hdrs = ["message_queue.h"],
     deps = [":message"],
-    visibility = ["//main:__pkg__"],
+    visibility = ["//__pkg__"],
 )
 
 cc_library(

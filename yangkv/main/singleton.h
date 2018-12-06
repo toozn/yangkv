@@ -7,13 +7,12 @@ public:
         return _instance;
     }
 
-    DISALLOW_COPY_AND_ASSIGN(Singleton);
 
 private:
+
     Singleton();
 
     ~Singleton();
-
     /// @brief Construct the singleton instance
     static void _new() {
         _instance = new YangkvMain();
@@ -26,4 +25,4 @@ private:
 
     static pthread_once_t _p_once;      ///< Initialization once control
     static YangkvMain* _instance;    ///< The singleton instance
-}singleton;
+};

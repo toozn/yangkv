@@ -1,10 +1,12 @@
 #include "skip_list.h"
 
+class Message;
+
 SkipList::SkipList() {
 	tmp_map.clear();
 }
 
-void SkipList::insertMessage(const Message* msg) {
+void SkipList::insertMessage(Message* msg) {
 	tmp_map[msg->key] = msg;
 }
 Message* SkipList::searchMessage(const string& key) {
