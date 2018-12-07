@@ -26,5 +26,5 @@ cc_library(
     srcs = ["compacter.cpp"],
     hdrs = ["compacter.h"],
     deps = [":message_queue",],
-    visibility = ["//main:__pkg__"],
+    visibility = ["//__pkg__"],
 )
