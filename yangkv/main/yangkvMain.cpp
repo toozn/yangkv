@@ -17,11 +17,12 @@ YangkvMain::YangkvMain(){}
 void YangkvMain::Init() {
     idx = 0;
     for (int id = 0; id < kMaxWriter; id++) {
-        act_list[id] = new SkipList();
+        act_list[id] = new SkipList(compacter);
         arg[id] = WriterConfig(0, id, (void*)act_list[id]);
         pthread_t tid;
         pthread_create(&tid, NULL, writerRound, (void*)&arg[id]);
     }
+    compacter = new Compacter();
 }
 
 void YangkvMain::setKey(const string& key, const string& value, bool del_flag) {

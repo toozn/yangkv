@@ -21,7 +21,7 @@ private:
     static const int kMaxWriter = 4;
     static const int kSeedForWriter = 37;
 	SkipList* act_list[kMaxWriter];
-	vector<SkipList*>frozen_list;
+	Compacter* compacter;
     WriterConfig arg[kMaxWriter];
 };
 

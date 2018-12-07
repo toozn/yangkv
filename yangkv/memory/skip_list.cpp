@@ -2,8 +2,9 @@
 
 class Message;
 
-SkipList::SkipList() {
+SkipList::SkipList(Compacter* compacter_) {
     tmp_map.clear();
+    compacter = compacter_;
     queue = new MessageQueue();
 }
 
