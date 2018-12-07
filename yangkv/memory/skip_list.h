@@ -1,13 +1,16 @@
 #include "message_queue.h"
-class MessageQueue;
-class Message;
+#include "utils/config.h"
 
 class SkipList {
 public:
 	SkipList();
-	void insertMessage(Message* msg);
-	Message* searchMessage(const string& key);
+    void Init();
+    ~SkipList();
+	Message* searchMessage(const string&, const unsigned long long);
+	void mayInsertMessage();
 	MessageQueue* queue;
 private:
+    void insertMessage(Message*);
 	map<string, Message*>tmp_map;	
 };
+

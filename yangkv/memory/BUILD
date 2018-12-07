@@ -17,6 +17,6 @@ cc_library(
 	name = "skip_list",
     srcs = ["skip_list.cpp"],
     hdrs = ["skip_list.h"],
-    deps = [":message_queue"],
+    deps = [":message_queue", "//utils:config"],
     visibility = ["//main:__pkg__"],
 )

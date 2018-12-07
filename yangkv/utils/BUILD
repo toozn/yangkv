@@ -1,8 +1,14 @@
 cc_library(
     name = "bloomfilter",
     srcs = ["bloomfilter.cpp"],
-
     hdrs = ["bloomfilter.h"],
+    visibility = ["//main:__pkg__"],
+)
+
+cc_library(
+    name = "hashhelper",
+    srcs = ["hash_helper.cpp"],
+    hdrs = ["hash_helper.h"],
     visibility = ["//main:__pkg__"],
 )
 
@@ -18,4 +24,10 @@ cc_library(
     srcs = ["env.cpp"],
     hdrs = ["env.h"],
     visibility = ["//main:__pkg__"],
+)
+
+cc_library(
+    name = "config",
+    hdrs = ["config.h"],
+    visibility = ["//main:__pkg__", "//memory:__pkg__"],
 )
