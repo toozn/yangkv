@@ -31,3 +31,9 @@ cc_library(
     hdrs = ["config.h"],
     visibility = ["//main:__pkg__", "//memory:__pkg__"],
 )
+
+cc_library(
+    name = "status",
+    hdrs = ["status.h"],
+    visibility = ["//main:__pkg__", "//memory:__pkg__"],
+)

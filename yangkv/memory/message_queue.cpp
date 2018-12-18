@@ -25,18 +25,21 @@ void MessageQueue::push(Message* msg) {
 	w_ptr++;
 }
 
-Message* MessageQueue::pop() {
+void MessageQueue::pop() {
 	assert(w_ptr > r_ptr);
-	Message* tmp = queue_[r_ptr % kQueueSize];
 	r_ptr++;
-	return tmp;
 }
 
-bool MessageQueue::IsFull() {
+Message* MessageQueue::getFront() {
+    assert(w_ptr > r_ptr);
+    return queue_[r_ptr % kQueueSize];
+}
+
+bool MessageQueue::isFull() {
 	return (w_ptr - r_ptr == kQueueSize);
 }
 
-bool MessageQueue::IsEmpty() {
+bool MessageQueue::isEmpty() {
 	return (w_ptr == r_ptr);
 }
 

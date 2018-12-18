@@ -2,6 +2,7 @@
 #include <unistd.h>
 
 int main() {
+    //printf("%d\n", kMaxCount);
     auto db = Singleton::get();
     db->Init();
     sleep(1);

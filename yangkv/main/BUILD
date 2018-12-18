@@ -6,12 +6,27 @@ cc_library(
 )
 
 cc_library(
+    name = "versionedit",
+    srcs = ["versionedit.h"],
+)
+cc_library(
+    name = "versionset",
+    srcs = ["versionset.cpp"],
+    hdrs = ["versionset.h"],
+    deps = [":versionedit",
+            "//memory:writer",
+            "//memory:compacter",
+            ],
+)
+cc_library(
     name = "yangkvMain",
     srcs = ["yangkvMain.cpp"],
     hdrs = ["yangkvMain.h"],
-    deps = ["//memory:skip_list", 
+    deps = ["//memory:writer", 
+            "//memory:compacter",
             "//utils:env",
             "//utils:hashhelper",
+            ":versionset",
            ],
 )
 

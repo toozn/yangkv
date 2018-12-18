@@ -1,9 +1,10 @@
 #include "utils/env.h"
-#include "memory/skip_list.h"
 #include "utils/hash_helper.h"
+#pragma once
 
-class SkipList;
-
+class Writer;
+class Compacter;
+class WriterConfig;
 class YangkvMain {
 public:
 	YangkvMain();
@@ -12,7 +13,7 @@ public:
 	void setKey(const string&, const string&, bool flag = 0);
 	void delKey(const string&);
 	string getValue(const string&);
-	SkipList* getList(int);
+	Writer* getWriter(int);
     void Stop();
 
 private:
@@ -20,9 +21,9 @@ private:
 	Env* env;
     static const int kMaxWriter = 4;
     static const int kSeedForWriter = 37;
-	SkipList* act_list[kMaxWriter];
+	Writer* writer[kMaxWriter];
 	Compacter* compacter;
-    WriterConfig arg[kMaxWriter];
+    WriterConfig* arg[kMaxWriter];
 };
 
 void* workerRound(void*);

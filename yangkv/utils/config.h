@@ -1,5 +1,9 @@
 #include <bits/stdc++.h>
+#pragma once
 using namespace std;
+
+class Compacter;
+class Writer;
 
 class Config{
 public:
@@ -10,12 +14,23 @@ public:
 class WriterConfig{
 public:
     WriterConfig(){}
-    WriterConfig(bool flag, int id, void* instance_) {
+    WriterConfig(bool flag, int id, Writer* instance_) {
         stopFLAG = flag;
         instance = instance_;
-        workerId = id;
+        writerId = id;
     }
-    void* instance;
+    Writer* instance;
     bool stopFLAG;
-    int workerId;
+    int writerId;
+};
+
+class CompacterConfig{
+public:
+    CompacterConfig(){}
+    CompacterConfig(bool flag, Compacter* instance_) {
+        stopFLAG = flag;
+        instance = instance_;
+    }
+    Compacter* instance;
+    bool stopFLAG;
 };
