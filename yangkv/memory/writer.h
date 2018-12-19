@@ -10,9 +10,10 @@ public:
     ~Writer();
 	Message* searchMessage(const string&, const unsigned long long);
 	void mayInsertMessage();
-	MessageQueue* queue;
+	MessageQueue* queue_;
 private:
-    Compacter* compacter;
-	SkipList* list;
+    const static int kMaxListSize = 10240;
+    Compacter* compacter_;
+	SkipList* list_;
 };
 

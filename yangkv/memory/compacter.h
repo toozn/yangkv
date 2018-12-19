@@ -1,7 +1,7 @@
 #include "message_queue.h"
 #include "utils/config.h"
+#include "skiplist.h"
 #pragma once
-using List = map<string, Message*>;
 using namespace std;
 
 class yangkvMain;
@@ -10,17 +10,18 @@ class Compacter {
 public:
     Compacter(){
         list_idx = 0;
-        lists[0].clear(), lists[1].clear();
+        list_[0].clear(), list_[1].clear();
+        pthread_cond_signal(&cond_);
     }
     ~Compacter(){}
-    void pushList(List*);
+    void pushList(SkipList*);
     void* compactRound(void*);
-    void mayCompactList();
+    void CompactList();
 private:
     static const int kMaxFrozenListSize = 10;
-    vector<List*>lists[2];
+    pthread_cond_t cond_;
+    vector<SkipList*>list_[2];
     yangkvMain* main_;
     int list_idx;
-    bool compactFLAG;
-    mutex lock_;
+    pthread_mutex_t lock_;
 };

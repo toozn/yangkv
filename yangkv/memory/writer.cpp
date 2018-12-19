@@ -1,26 +1,33 @@
 #include "writer.h"
+#include "compacter.h"
 
-Writer::Writer(Compacter* compacter_) {
-    list = new SkipList();
-    compacter = compacter_;
-    queue = new MessageQueue();
+class compacter;
+
+Writer::Writer(Compacter* compacter) {
+    list_ = new SkipList();
+    compacter_ = compacter;
+    queue_ = new MessageQueue();
 }
 
 Writer::~Writer() {
-    delete list;
+    delete list_;
 }
 
 void Writer::mayInsertMessage() {
-    while (queue->isEmpty() == false) {
-        auto msg = queue->getFront();
-        list->insert(msg);
-        queue->pop();
+    while (queue_->isEmpty() == false) {
+        auto msg = queue_->getFront();
+        list_->insert(msg);
+        queue_->pop();
         printf("Success Insert! KEY:%s VALUE:%s ID:%lld\n", msg->key.c_str(), msg->value.c_str(), msg->id);
+        if (list_->size() >= kMaxListSize) {
+            compacter_->pushList(list_);
+            list_ = new SkipList();
+        }
     }
 }
 
 Message* Writer::searchMessage(const string& key, const unsigned long long idx) {
-    return list->search(key, idx);
+    return list_->search(key, idx);
 }
 
 void* workRound(void* arg_) {

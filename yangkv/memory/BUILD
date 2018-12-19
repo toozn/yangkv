@@ -23,7 +23,9 @@ cc_library(
 	name = "writer",
     srcs = ["writer.cpp"],
     hdrs = ["writer.h"],
-    deps = [":skiplist","//utils:config", "message_queue"],
+    deps = [ "//utils:config", 
+            "compacter",
+            ],
     visibility = ["//main:__pkg__"],
 )
 
@@ -31,6 +33,9 @@ cc_library(
 	name = "compacter",
     srcs = ["compacter.cpp"],
     hdrs = ["compacter.h"],
-    deps = [":message_queue", "//utils:config",],
+    deps = [":message_queue", 
+            "//utils:config",
+            ":skiplist",
+            ],
     visibility = ["//main:__pkg__"],
 )

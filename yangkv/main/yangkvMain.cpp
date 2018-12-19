@@ -30,7 +30,7 @@ void YangkvMain::Init() {
 void YangkvMain::setKey(const string& key, const string& value, bool del_flag) {
 	auto id = idx++;
     int writerID = strHash(key, kSeedForWriter) % kMaxWriter;
-    auto queue = writer[writerID]->queue;
+    auto queue = writer[writerID]->queue_;
     assert(queue != nullptr);
     auto msg = new Message(key, value, id, del_flag);
 	if (queue->isFull() == false) {
@@ -51,7 +51,7 @@ void YangkvMain::delKey(const string& key) {
 string YangkvMain::getValue(const string& key) {
     auto id = idx;
     int writerID = strHash(key, kSeedForWriter) % kMaxWriter;
-    auto msg = writer[writerID]->queue->search(key, id);
+    auto msg = writer[writerID]->queue_->search(key, id);
     if (msg != nullptr) {
         if (msg->del_flag == true) {
             return "IsEmpty";
