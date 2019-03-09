@@ -35,5 +35,6 @@ cc_library(
 cc_library(
     name = "status",
     hdrs = ["status.h"],
+    deps = [":env",],
     visibility = ["//main:__pkg__", "//memory:__pkg__"],
 )

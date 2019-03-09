@@ -1,4 +1,5 @@
 #include "message.h"
+#include "utils/status.h"
 #pragma once
 
 class SkipList {
@@ -13,14 +14,12 @@ public:
         }
         list_[msg->key] = msg;
     }
-    Message* search(const string& key, const unsigned long long idx) {
-        if (list_.count(key) == 0) {
-            return nullptr;
+    Status get(Message& msg) {
+        if (list_.count(msg.key) == 0) {
+            return Status::NotFound();
         }
-        if (list_[key]->del_flag == true) {
-            return nullptr;
-        }
-        return list_[key];
+        msg = *list_[msg.key];
+        return Status::OK();
     }
     unsigned long long getId() {
         return id_;

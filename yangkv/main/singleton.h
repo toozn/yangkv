@@ -1,5 +1,5 @@
 #include "yangkvMain.h"
-
+#pragma once
 class YangkvMain;
 
 class Singleton {

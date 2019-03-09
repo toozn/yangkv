@@ -1,7 +1,6 @@
 cc_library(
     name = "message",
-    srcs = ["message.cpp"],
-    hdrs = ["message.h"],
+    srcs = ["message.h"],
     visibility = ["//__pkg__"],
 )
 
@@ -16,7 +15,9 @@ cc_library(
 cc_library(
 	name = "skiplist",
     srcs = ["skiplist.h"],
-    deps = [":message",],
+    deps = [":message",
+    		"//utils:status",
+    		],
     visibility = ["//main:__pkg__"],
 )
 cc_library(

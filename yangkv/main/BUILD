@@ -7,7 +7,8 @@ cc_library(
 
 cc_library(
     name = "versionedit",
-    srcs = ["versionedit.h"],
+    srcs = ["versionedit.cpp"],
+    hdrs = ["versionedit.h"],
 )
 cc_library(
     name = "versionset",
@@ -27,6 +28,7 @@ cc_library(
             "//utils:env",
             "//utils:hashhelper",
             ":versionset",
+            "//utils:status",
            ],
 )
 

@@ -12,8 +12,9 @@ public:
 	void mayInsertMessage();
 	MessageQueue* queue_;
 private:
-    const static int kMaxListSize = 10240;
+    const static int kMaxListSize = 102400;
     Compacter* compacter_;
 	SkipList* list_;
+    pthread_rwlock_t  rwlock_;
 };
 

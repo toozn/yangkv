@@ -1,9 +1,10 @@
 #include "memory/writer.h"
 #include "memory/compacter.h"
 #include "versionedit.h"
+#pragma once
 class VersionSet;
 class yangkvMain;
-class VersionEdit;
+
 class Version{
 public:
     Version(){}
@@ -12,12 +13,17 @@ public:
     }
     void ref();
     void unref();
+    Status Get(Message& key);
+    Status apply(Version* curr, VersionEdit* edit);
     Version* nxt_;
     Version* pre_;
 private:
+    friend class VersionSet;
+    friend class VersionEdit;
     VersionSet* set_;
     int ref_;
-    set<SkipList*>maintainList_;
+    vector<SkipList*>maintainList_[kMaxWriter];
+    vector<FileMetaData*>files_[kMaxLevel];
 };
 
 class VersionSet{
@@ -26,11 +32,13 @@ public:
         dummyVersion_ = Version();
         current_ = &dummyVersion_;
     }
-    void applyEdit(VersionEdit* edit) {
-        auto v = new Version(this);
-        //TODO
-    }
+    void addVersion(Version* v);
+    Status applyEdit(VersionEdit* edit);
+private:
+    friend class yangkvMain;
+    friend class Version;
     Version* current_;
     Version dummyVersion_;
     yangkvMain* db_;
+private:
 };

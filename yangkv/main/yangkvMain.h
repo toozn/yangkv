@@ -1,29 +1,32 @@
 #include "utils/env.h"
 #include "utils/hash_helper.h"
+#include "utils/status.h"
 #pragma once
 
 class Writer;
 class Compacter;
 class WriterConfig;
+class VersionSet;
 class YangkvMain {
 public:
 	YangkvMain();
 	~YangkvMain();
-    void Init();
-	void setKey(const string&, const string&, bool flag = 0);
-	void delKey(const string&);
-	string getValue(const string&);
+    void init();
+	Status setKey(const string&, const string&, bool flag = 0);
+	Status delKey(const string&);
+	Status getValue(const string&, string&);
 	Writer* getWriter(int);
-    void Stop();
+    void stop();
 
 private:
-	unsigned long long idx;
-	Env* env;
+	unsigned long long idx_;
+	Env* env_;
     static const int kMaxWriter = 4;
     static const int kSeedForWriter = 37;
-	Writer* writer[kMaxWriter];
-	Compacter* compacter;
-    WriterConfig* arg[kMaxWriter];
+	Writer* writer_[kMaxWriter];
+	Compacter* compacter_;
+    WriterConfig* arg_[kMaxWriter];
+    VersionSet* set_;
 };
 
 void* workerRound(void*);

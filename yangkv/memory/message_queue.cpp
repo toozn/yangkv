@@ -17,10 +17,8 @@ MessageQueue::~MessageQueue() {
 
 void MessageQueue::push(Message* msg) {
 	lock_guard<mutex> lock(lock_);
-    msg->Debug();
-	while(w_ptr - r_ptr >= kQueueSize) {
-		usleep(5000);
-	}
+    //msg->Debug();
+	while(w_ptr - r_ptr >= kQueueSize) usleep(5);
 	queue_[w_ptr % kQueueSize] = msg;
 	w_ptr++;
 }
@@ -44,12 +42,12 @@ bool MessageQueue::isEmpty() {
 }
 
 Message* MessageQueue::search(const string& key, const unsigned long long idx) {
-    unsigned long long begin = r_ptr;
-    unsigned long long end = w_ptr - 1;
-    for (unsigned long long i = begin; i <= end; i++) {
-        int pos = i % kQueueSize;
-        if (queue_[pos]->key == key && queue_[pos]->id <= idx) {
-            return queue_[pos];
+    unsigned long long begin = w_ptr - 1;
+    unsigned long long end = r_ptr;
+    for (unsigned long long i = begin; i >= end; i--) {
+        auto msg = queue_[i % kQueueSize];
+        if (key == msg->key && idx <= msg->id) {
+            return msg;
         }
     }
     return nullptr;
